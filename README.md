@@ -15,6 +15,7 @@ public class TxHandler {
 **Solution**：
 
 Create a defensive copy: 
+
 utxopool is a private property that cannot be invoked or modified outside of the class, and the value passed in when new cannot be modified
 
 ### Part 2
