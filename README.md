@@ -13,6 +13,7 @@ public class TxHandler {
 */
 
 Solution：
+
 Create a defensive copy: utxopool is a private property that cannot be invoked or modified outside of the class, and the value passed in when new cannot be modified
 
 ### Part 2
@@ -27,6 +28,7 @@ public TxHandler(UTXOPool utxoPool);
 */
 
 Solution：
+
 1. Input one Transaction at a time to isValidTx and iterate over each input of the Transaction to determine whether it is in the UTXO pool.
 
 2. Every time when input a Transaction to isValidTx, traverse the Transaction each input to gain output PublicKey, Transaction. GetRawDataToSign(i) and the input of the signature, going to Crypto. VerifySignature method, if verification is successful, returns true.
