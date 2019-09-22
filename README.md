@@ -48,5 +48,7 @@ public boolean isValidTx(Transaction tx);
 *	and updating the current UTXO pool as appropriate.
 */
 
+
+Solution：
 Create a Transaction HashSet that contains a non-repeatable Transaction, traverse the Transaction array, and skip this step to the next loop if the HashSet already exists.
 IsValidTx validates, adds the Transaction to the HashSet, changes the flag, adds to the UTXO pool, and removes the UTXO pool.
