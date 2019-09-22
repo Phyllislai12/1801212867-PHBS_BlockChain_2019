@@ -14,7 +14,8 @@ public class TxHandler {
 
 **Solution**：
 
-Create a defensive copy: utxopool is a private property that cannot be invoked or modified outside of the class, and the value passed in when new cannot be modified
+Create a defensive copy: 
+utxopool is a private property that cannot be invoked or modified outside of the class, and the value passed in when new cannot be modified
 
 ### Part 2
 public TxHandler(UTXOPool utxoPool);
@@ -51,8 +52,14 @@ public boolean isValidTx(Transaction tx);
 
 **Solution**：
 
-Create a Transaction HashSet that contains a non-repeatable Transaction, traverse the Transaction array, and skip this step to the next loop if the HashSet already exists.
-IsValidTx validates, adds the Transaction to the HashSet, changes the flag, adds to the UTXO pool, and removes the UTXO pool.
+* Create a Transaction HashSet that contains a non-repeatable Transaction
+* Traverse the Transaction array, and skip this step to the next loop if the HashSet already exists.
+* IsValidTx validates
+* Adds the Transaction to the HashSet
+* Changes the flag
+* Adds to the UTXO pool
+* Removes the UTXO pool.
+
 
 ## Test Summary
 
