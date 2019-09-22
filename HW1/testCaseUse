@@ -1,0 +1,86 @@
+package cn.distribution.config;
+
+import junit.framework.TestCase;
+import sun.misc.BASE64Decoder;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.security.*;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.UUID;
+
+public class testCaseUse extends TestCase {
+
+    @Override
+    protected void setUp() throws Exception {
+
+        // TODO Auto-generated method stub
+
+        super.setUp();
+
+        System.out.println("setUp , hashCode = "+hashCode());
+
+    }
+
+//    @Override
+//    protected void tearDown() throws Exception {
+//
+//// TODO Auto-generated method stub
+//
+//        super.tearDown();
+//
+//        System.out.println("tearDown,hashCode = "+hashCode());
+//
+//    }
+private  static byte[] getPublicKey(byte[] key,KeyPair myKeyPair) throws Exception {
+    try{
+        byte[] info =key;
+        //产生Signature对象,用私钥对信息(info)签名.
+        Signature mySig = Signature.getInstance("SHA256withRSA");  //用指定算法产生签名对象
+        mySig.initSign(myKeyPair.getPrivate());  //用私钥初始化签名对象
+        mySig.update(info);  //将待签名的数据传送给签名对象(须在初始化之后)
+        byte[] sigResult = mySig.sign();  //返回签名结果字节数
+        return sigResult;
+    }catch (Exception ex){ex.printStackTrace();}
+    return null;
+}
+
+    public void testMethod1() throws Exception {
+        KeyPairGenerator myKeyGen= KeyPairGenerator.getInstance("RSA");
+        myKeyGen.initialize(1024);
+        KeyPair myKeyPair = myKeyGen.generateKeyPair();
+        Transaction transaction = new Transaction();
+        String prevTx = UUID.randomUUID().toString();
+        Transaction.Output output = transaction.new Output(100,myKeyPair.getPublic());
+        transaction.addInput(prevTx.getBytes(),0);
+        transaction.addOutput(100,myKeyPair.getPublic());
+        UTXOPool utxoPool = new UTXOPool();
+        UTXO utxo = new UTXO(prevTx.getBytes(),0);
+        utxoPool.addUTXO(utxo,output);
+        transaction.getInput(0).addSignature(getPublicKey(transaction.getRawDataToSign(0),myKeyPair));
+        TxHandler txHandler = new TxHandler(utxoPool);
+       boolean b1 =  txHandler.isValidTx(transaction);
+    }
+
+    public void testMethod2() throws Exception {
+        Transaction[] transactions  = new Transaction[1];
+        KeyPairGenerator myKeyGen= KeyPairGenerator.getInstance("RSA");
+        myKeyGen.initialize(1024);
+        KeyPair myKeyPair = myKeyGen.generateKeyPair();
+        Transaction transaction = new Transaction();
+        String prevTx = UUID.randomUUID().toString();
+        Transaction.Output output = transaction.new Output(100,myKeyPair.getPublic());
+        transaction.addInput(prevTx.getBytes(),0);
+        transaction.addOutput(100,myKeyPair.getPublic());
+        UTXOPool utxoPool = new UTXOPool();
+        UTXO utxo = new UTXO(prevTx.getBytes(),0);
+        utxoPool.addUTXO(utxo,output);
+        transaction.getInput(0).addSignature(getPublicKey(transaction.getRawDataToSign(0),myKeyPair));
+        transaction.setHash(UUID.randomUUID().toString().getBytes());
+        transactions[0]  = transaction;
+
+        TxHandler txHandler = new TxHandler(utxoPool);
+        Transaction[] result =  txHandler.handleTxs(transactions);
+    }
+
+}
