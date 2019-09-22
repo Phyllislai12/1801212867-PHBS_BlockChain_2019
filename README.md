@@ -12,7 +12,7 @@ public class TxHandler {
 *	utxoPool by using the UTXOPool(UTXOPool uPool) constructor.
 */
 
-Solution：
+**Solution**：
 
 Create a defensive copy: utxopool is a private property that cannot be invoked or modified outside of the class, and the value passed in when new cannot be modified
 
@@ -27,7 +27,7 @@ public TxHandler(UTXOPool utxoPool);
 *	(5) the sum of tx’s input values is greater than or equal to the sum of its output values; and false otherwise.
 */
 
-Solution：
+**Solution**：
 
 1. Input one Transaction at a time to isValidTx and iterate over each input of the Transaction to determine whether it is in the UTXO pool.
 
@@ -49,7 +49,7 @@ public boolean isValidTx(Transaction tx);
 */
 
 
-Solution：
+**Solution**：
 
 Create a Transaction HashSet that contains a non-repeatable Transaction, traverse the Transaction array, and skip this step to the next loop if the HashSet already exists.
 IsValidTx validates, adds the Transaction to the HashSet, changes the flag, adds to the UTXO pool, and removes the UTXO pool.
