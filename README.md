@@ -73,7 +73,6 @@ Generate the Signature object and sign the information with the private key. Gen
 * Add an input to the Transaction 
 * Add an output to the Transaction
 * Create a UTXO pool
-* Create a UTXO pool
 * Add the UTXO object to the UTXO pool
 * Add Signature property to the first input in the Transaction, and create TxHandler. 
 * Pass the Transaction into isValidTx for validation.
