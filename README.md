@@ -60,9 +60,31 @@ Generate the Signature object and sign the information with the private key. Gen
 
 ### Use the testMethod1() method to test the txhandler.isvalidtx method
 
-Generate the key pair, create a Transaction object, generate a random number hash, create an output value of 100, public key mykeyping.getpublic (), add an input to the Transaction, add an output to the Transaction, create a UTXO pool, create a UTXO pool, add the UTXO object to the UTXO pool, add Signature property to the first input in the Transaction, and create TxHandler. Pass the Transaction into isValidTx for validation.
+Generate the key pair, create a Transaction object
+Generate a random number hash, create an output value of 100, public key mykeyping.getpublic ()
+Add an input to the Transaction 
+Add an output to the Transaction
+Create a UTXO pool
+Create a UTXO pool
+Add the UTXO object to the UTXO pool
+Add Signature property to the first input in the Transaction, and create TxHandler. 
+Pass the Transaction into isValidTx for validation.
 
 ### Use the testMethod2() method to test the txhandler.handletxs method
 
-Create a Transaction array, generate key pairs, create a Transaction object, generate a random number hash, and create an output value of 100. Public key mykeyping.getpublic (), add an input to the Transaction, add an output to the Transaction, create a UTXO pool, create a UTXO, add a UTXO object to the UTXO pool, add Signature attribute to the first input in the Transaction, add the Transaction into the Transaction array, create TxHandler, pass in the Transaction array for verification and return.
+Create a Transaction array
+Generate key pairs
+Create a Transaction object
+Generate a random number hash
+Create an output value of 100. Public key mykeyping.getpublic ()
+Add an input to the Transaction
+Add an output to the Transaction
+Create a UTXO pool
+Create a UTXO
+Add a UTXO object to the UTXO pool
+Add Signature attribute to the first input in the Transaction
+Add the Transaction into the Transaction array 
+Create TxHandler
+Pass in the Transaction array for verification and return.
+
 
