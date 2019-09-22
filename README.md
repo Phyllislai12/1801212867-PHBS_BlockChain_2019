@@ -59,10 +59,10 @@ IsValidTx validates, adds the Transaction to the HashSet, changes the flag, adds
 Generate the Signature object and sign the information with the private key. Generates the signature object with the specified algorithm, initializes the signature object with the private key, passes the data to be signed to the signature object (after initialization), and returns the number of bytes of the signature result.
 
 ### Use the testMethod1() method to test the txhandler.isvalidtx method
+
 Generate the key pair, create a Transaction object, generate a random number hash, create an output value of 100, public key mykeyping.getpublic (), add an input to the Transaction, add an output to the Transaction, create a UTXO pool, create a UTXO pool, add the UTXO object to the UTXO pool, add Signature property to the first input in the Transaction, and create TxHandler. Pass the Transaction into isValidTx for validation.
 
 ### Use the testMethod2() method to test the txhandler.handletxs method
+
 Create a Transaction array, generate key pairs, create a Transaction object, generate a random number hash, and create an output value of 100. Public key mykeyping.getpublic (), add an input to the Transaction, add an output to the Transaction, create a UTXO pool, create a UTXO, add a UTXO object to the UTXO pool, add Signature attribute to the first input in the Transaction, add the Transaction into the Transaction array, create TxHandler, pass in the Transaction array for verification and return.
-### Use the testMethod1() method to test the txhandler.isvalidtx method#
-### Use the testMethod1() method to test the txhandler.isvalidtx method#
-### Use the testMethod1() method to test the txhandler.isvalidtx method
+
