@@ -130,14 +130,13 @@ public class testCaseUse extends TestCase {
         String prevTx = UUID.randomUUID().toString();
         Transaction.Output output = transaction.new Output(100,myKeyPair.getPublic());
         transaction.addInput(prevTx.getBytes(),0);
-        transaction.addOutput(-1,myKeyPair.getPublic());
+        transaction.addOutput(100,myKeyPair.getPublic());
         UTXOPool utxoPool = new UTXOPool();
         UTXO utxo = new UTXO(prevTx.getBytes(),0);
         utxoPool.addUTXO(utxo,output);
         transaction.getInput(0).addSignature(getPublicKey(transaction.getRawDataToSign(0),myKeyPair));
         TxHandler txHandler = new TxHandler(utxoPool);
-        boolean b1 =  txHandler.isValidTx(transaction);
-        System.out.println(b1);
+       boolean b1 =  txHandler.isValidTx(transaction);
     }
     public void testMethod6() throws Exception {
         Transaction[] transactions  = new Transaction[1];
