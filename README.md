@@ -99,7 +99,22 @@ Test all the true situations
 * Pass in the Transaction array for verification and return.
 
 ### TestCaseUse2
-
 Test false situations
 
-#### Use the testMethod1() method to test the txhandler.isvalidtx method
+#### testMethod1()
+Test all outputs claimed by tx are in th current UTXO pool, if not, return false.
+
+#### testMethod2()
+Test the signatures on each input of tx are valid, if not, return false.
+
+#### testMethod3()
+Test no UTXO is claimed multiple times by tx, if not, return false.
+
+#### testMethod4()
+Test all of tx's output values are non-negative and the sum of tx's input values is greater than or equal to the sum of its output values, if not, return false.
+
+#### testMethod5()
+test the txhandler.isvalidtx method, all right, return true.
+
+### testMethod6()
+test the txhandler.handletxs method, all right, return true.
