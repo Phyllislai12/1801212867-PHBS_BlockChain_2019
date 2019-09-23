@@ -66,7 +66,11 @@ public boolean isValidTx(Transaction tx);
 
 Generate the Signature object and sign the information with the private key. Generates the signature object with the specified algorithm, initializes the signature object with the private key, passes the data to be signed to the signature object (after initialization), and returns the number of bytes of the signature result.
 
-### Use the testMethod1() method to test the txhandler.isvalidtx method
+### TestCaseUse
+
+Test all the true situations
+
+#### Use the testMethod1() method to test the txhandler.isvalidtx method
 
 * Generate the key pair, create a Transaction object
 * Generate a random number hash, create an output value of 100, public key mykeyping.getpublic ()
@@ -77,7 +81,7 @@ Generate the Signature object and sign the information with the private key. Gen
 * Add Signature property to the first input in the Transaction, and create TxHandler. 
 * Pass the Transaction into isValidTx for validation.
 
-### Use the testMethod2() method to test the txhandler.handletxs method
+#### Use the testMethod2() method to test the txhandler.handletxs method
 
 * Create a Transaction array
 * Generate key pairs
@@ -94,4 +98,8 @@ Generate the Signature object and sign the information with the private key. Gen
 * Create TxHandler
 * Pass in the Transaction array for verification and return.
 
+### TestCaseUse2
 
+Test false situations
+
+#### Use the testMethod1() method to test the txhandler.isvalidtx method
