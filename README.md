@@ -116,5 +116,5 @@ Test all of tx's output values are non-negative and the sum of tx's input values
 #### testMethod5()
 test the txhandler.isvalidtx method, all right, return true.
 
-### testMethod6()
+#### testMethod6()
 test the txhandler.handletxs method, all right, return true.
