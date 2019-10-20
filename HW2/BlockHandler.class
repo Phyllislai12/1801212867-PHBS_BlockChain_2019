@@ -1,0 +1,40 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+import java.security.PublicKey;
+
+public class BlockHandler {
+    private BlockChain blockChain;
+
+    public BlockHandler(BlockChain blockChain) {
+        this.blockChain = blockChain;
+    }
+
+    public boolean processBlock(Block block) {
+        return block == null ? false : this.blockChain.addBlock(block);
+    }
+
+    public Block createBlock(PublicKey myAddress) {
+        Block parent = this.blockChain.getMaxHeightBlock();
+        byte[] parentHash = parent.getHash();
+        Block current = new Block(parentHash, myAddress);
+        UTXOPool uPool = this.blockChain.getMaxHeightUTXOPool();
+        TransactionPool txPool = this.blockChain.getTransactionPool();
+        TxHandler handler = new TxHandler(uPool);
+        Transaction[] txs = (Transaction[])txPool.getTransactions().toArray(new Transaction[0]);
+        Transaction[] rTxs = handler.handleTxs(txs);
+
+        for(int i = 0; i < rTxs.length; ++i) {
+            current.addTransaction(rTxs[i]);
+        }
+
+        current.finalize();
+        return this.blockChain.addBlock(current) ? current : null;
+    }
+
+    public void processTx(Transaction tx) {
+        this.blockChain.addTransaction(tx);
+    }
+}
