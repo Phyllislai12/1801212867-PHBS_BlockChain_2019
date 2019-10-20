@@ -1,0 +1,115 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+import Transaction.Output;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class BlockChain {
+    private HashMap<ByteArrayWrapper, BlockChain.BlockNode> blockChain = new HashMap();
+    private BlockChain.BlockNode maxHeightNode;
+    private TransactionPool txPool;
+    public static final int CUT_OFF_AGE = 10;
+
+    public BlockChain(Block genesisBlock) {
+        UTXOPool utxoPool = new UTXOPool();
+        this.addCoinbaseToUTXOPool(genesisBlock, utxoPool);
+        BlockChain.BlockNode genesisNode = new BlockChain.BlockNode(genesisBlock, (BlockChain.BlockNode)null, utxoPool);
+        this.blockChain.put(wrap(genesisBlock.getHash()), genesisNode);
+        this.txPool = new TransactionPool();
+        this.maxHeightNode = genesisNode;
+    }
+
+    public Block getMaxHeightBlock() {
+        return this.maxHeightNode.b;
+    }
+
+    public UTXOPool getMaxHeightUTXOPool() {
+        return this.maxHeightNode.getUTXOPoolCopy();
+    }
+
+    public TransactionPool getTransactionPool() {
+        return this.txPool;
+    }
+
+    public boolean addBlock(Block block) {
+        byte[] prevBlockHash = block.getPrevBlockHash();
+        if (prevBlockHash == null) {
+            return false;
+        } else {
+            BlockChain.BlockNode parentBlockNode = (BlockChain.BlockNode)this.blockChain.get(wrap(prevBlockHash));
+            if (parentBlockNode == null) {
+                return false;
+            } else {
+                TxHandler handler = new TxHandler(parentBlockNode.getUTXOPoolCopy());
+                Transaction[] txs = (Transaction[])block.getTransactions().toArray(new Transaction[0]);
+                Transaction[] validTxs = handler.handleTxs(txs);
+                if (validTxs.length != txs.length) {
+                    return false;
+                } else {
+                    int proposedHeight = parentBlockNode.height + 1;
+                    if (proposedHeight <= this.maxHeightNode.height - 10) {
+                        return false;
+                    } else {
+                        UTXOPool utxoPool = handler.getUTXOPool();
+                        this.addCoinbaseToUTXOPool(block, utxoPool);
+                        BlockChain.BlockNode node = new BlockChain.BlockNode(block, parentBlockNode, utxoPool);
+                        this.blockChain.put(wrap(block.getHash()), node);
+                        if (proposedHeight > this.maxHeightNode.height) {
+                            this.maxHeightNode = node;
+                        }
+
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    public void addTransaction(Transaction tx) {
+        this.txPool.addTransaction(tx);
+    }
+
+    private void addCoinbaseToUTXOPool(Block block, UTXOPool utxoPool) {
+        Transaction coinbase = block.getCoinbase();
+
+        for(int i = 0; i < coinbase.numOutputs(); ++i) {
+            Output out = coinbase.getOutput(i);
+            UTXO utxo = new UTXO(coinbase.getHash(), i);
+            utxoPool.addUTXO(utxo, out);
+        }
+
+    }
+
+    private static ByteArrayWrapper wrap(byte[] arr) {
+        return new ByteArrayWrapper(arr);
+    }
+
+    private class BlockNode {
+        public Block b;
+        public BlockChain.BlockNode parent;
+        public ArrayList<BlockChain.BlockNode> children;
+        public int height;
+        private UTXOPool uPool;
+
+        public BlockNode(Block b, BlockChain.BlockNode parent, UTXOPool uPool) {
+            this.b = b;
+            this.parent = parent;
+            this.children = new ArrayList();
+            this.uPool = uPool;
+            if (parent != null) {
+                this.height = parent.height + 1;
+                parent.children.add(this);
+            } else {
+                this.height = 1;
+            }
+
+        }
+
+        public UTXOPool getUTXOPoolCopy() {
+            return new UTXOPool(this.uPool);
+        }
+    }
+}
