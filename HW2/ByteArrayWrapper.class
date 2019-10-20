@@ -1,0 +1,49 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+import java.util.Arrays;
+
+public class ByteArrayWrapper {
+    private byte[] contents;
+
+    public ByteArrayWrapper(byte[] b) {
+        this.contents = new byte[b.length];
+
+        for(int i = 0; i < this.contents.length; ++i) {
+            this.contents[i] = b[i];
+        }
+
+    }
+
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        } else if (this.getClass() != other.getClass()) {
+            return false;
+        } else {
+            ByteArrayWrapper otherB = (ByteArrayWrapper)other;
+            byte[] b = otherB.contents;
+            if (this.contents == null) {
+                return b == null;
+            } else if (b == null) {
+                return false;
+            } else if (this.contents.length != b.length) {
+                return false;
+            } else {
+                for(int i = 0; i < b.length; ++i) {
+                    if (this.contents[i] != b[i]) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+    }
+
+    public int hashCode() {
+        return Arrays.hashCode(this.contents);
+    }
+}
