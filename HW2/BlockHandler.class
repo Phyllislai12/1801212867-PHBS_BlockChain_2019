@@ -1,40 +1,37 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
+import java.util.ArrayList;
 
-import java.security.PublicKey;
+import static java.lang.System.out;
 
-public class BlockHandler {
-    private BlockChain blockChain;
-
-    public BlockHandler(BlockChain blockChain) {
-        this.blockChain = blockChain;
+public class BlockChainClip {
+    private Block block;
+    private int height;
+    private UTXOPool utxoPool;
+    private BlockChain.BlockNode parentNode;
+    private ArrayList<BlockChain.BlockNode> childNodes;
+    private BlockChain.BlockNode blockNode;
+    public BlockChainClip(BlockChain.BlockNode blockNode){
+        this.block = blockNode.getNode_block();
+        this.height = blockNode.getNode_height();
+        this.utxoPool = blockNode.getUTXOPoolCopy();
+        this.parentNode = blockNode.getNode_parentNode();
+        this.childNodes = blockNode.getNode_childNodes();
+        this.blockNode = blockNode;
     }
 
-    public boolean processBlock(Block block) {
-        return block == null ? false : this.blockChain.addBlock(block);
+    public void printBlockChainClip(){
+        BlockChain.BlockNode currentBlockNode = this.blockNode;
+        printDFSSearch(currentBlockNode);
     }
 
-    public Block createBlock(PublicKey myAddress) {
-        Block parent = this.blockChain.getMaxHeightBlock();
-        byte[] parentHash = parent.getHash();
-        Block current = new Block(parentHash, myAddress);
-        UTXOPool uPool = this.blockChain.getMaxHeightUTXOPool();
-        TransactionPool txPool = this.blockChain.getTransactionPool();
-        TxHandler handler = new TxHandler(uPool);
-        Transaction[] txs = (Transaction[])txPool.getTransactions().toArray(new Transaction[0]);
-        Transaction[] rTxs = handler.handleTxs(txs);
-
-        for(int i = 0; i < rTxs.length; ++i) {
-            current.addTransaction(rTxs[i]);
+    private void printDFSSearch(BlockChain.BlockNode blockNode){
+        if(blockNode.getNode_childNodes().size() == 0){
+            out.println("Block hash is: " + blockNode.getNode_block().hashCode());
+            out.println("Side Branch End!");
+        }else{
+            for(BlockChain.BlockNode childBlockNode:blockNode.getNode_childNodes()){
+                out.println("Block hash is: "+blockNode.getNode_block().hashCode());
+                printDFSSearch(childBlockNode);
+            }
         }
-
-        current.finalize();
-        return this.blockChain.addBlock(current) ? current : null;
-    }
-
-    public void processTx(Transaction tx) {
-        this.blockChain.addTransaction(tx);
     }
 }
