@@ -123,6 +123,15 @@ test the txhandler.handletxs method, all right, return true.
 
 # HW2
 ## Solution Summary
+This class of constructors initializes an empty blockchain including UTXOPool and TransactionPool. 
+
+The class also provides addBlock to add a valid block to the block chain and needs to set the data signature. 
+
+The addTransaction method adds a transaction to the transaction pool; 
+
+There are also methods to query blocks: 
+
+getMaxHeightBlock
 
 ## Test Summary
 ### testCase1()
