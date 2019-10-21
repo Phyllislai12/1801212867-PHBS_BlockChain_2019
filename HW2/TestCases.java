@@ -113,13 +113,13 @@ public class TestCases {
         System.out.println("--------------------------------------");
         System.out.println("store a limited length of block chain:");
         blockChainClip.printBlockChainClip();
-        //getMaxHeightBlock测试
+        //get MaxHeightBlock test
         System.out.println("333================" + blockChain.getMaxHeightBlock().equals(genesisBlock));
         System.out.println("--------------------------------------");
         System.out.println("--------------------------------------");
-        //getTransactionPool
+        //get TransactionPool
         System.out.println(blockChain.getTransactionPool().getTransactions());
-        //getMaxHeightUTXOPool
+        //get MaxHeightUTXOPool
         System.out.println(blockChain.getMaxHeightUTXOPool().getAllUTXO().size());
     }
 
