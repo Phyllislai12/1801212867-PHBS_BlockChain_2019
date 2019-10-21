@@ -1,6 +1,8 @@
 # 1801212867-PHBS_BlockChain_2019
-# HW1
+
 Lai Lin 赖琳 1801212867
+
+# HW1
 
 ## Solution Summary
 
@@ -118,3 +120,20 @@ test the txhandler.isvalidtx method, all right, return true.
 
 #### testMethod6()
 test the txhandler.handletxs method, all right, return true.
+
+# HW2
+## Solution Summary
+
+## Test Summary
+### testCase1()
+Test：
+BlockChain(Block genesisBlock)
+Block getMaxHeightBlock()
+UTXOPool getMaxHeightUTXOPool() 
+TransactionPool getTransactionPool()
+boolean addBlock(Block block) 
+void addTransaction(Transaction tx)
+
+
+### The last test
+public void testBlockChainInvalidPreviousBranch() test the false case of block validation
