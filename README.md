@@ -128,10 +128,15 @@ test the txhandler.handletxs method, all right, return true.
 ### testCase1()
 Test：
 BlockChain(Block genesisBlock)
+
 Block getMaxHeightBlock()
+
 UTXOPool getMaxHeightUTXOPool() 
+
 TransactionPool getTransactionPool()
+
 boolean addBlock(Block block) 
+
 void addTransaction(Transaction tx)
 
 
